@@ -1,36 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sign up</title>
-    <link rel="stylesheet" href="sign.css">
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="sign.css"> <!-- Using same CSS -->
 </head>
-
 <body>
-    <div class="container" id="login1">
-        <div class="box">
-            <h1 style="text-shadow: 0 0 10px #ffffff, 0 0 20px #c60b2e, 0 0 30px #9b510f;">Sign Up</h1>
-        </div>
-        <div class="box2" style="padding-top: 0px;">
-            <div class="user">
-                <input type="text" placeholder="Username" class="abc"
-                    style="background-color:black; width:300px;height: 40px;">
-            </div>
-            <div class="email" style="padding-bottom: 46px;">
-                <input type="text" placeholder="E-mail" class="abc"
-                    style="background-color:black; width:300px;height: 40px;">
-            </div>
-            <div class="pass">
-                <input type="password" placeholder="Password" required class="abc"
-                    style="background-color:black;width:300px;height: 40px;">
-            </div>
-        </div>
-        <div class="login"><button
-                style="background-color: black;color: white;width:100px;height:30px;display: flex;justify-content: center;align-items: center;border-radius: 20px;box-shadow: 0 0 10px #9a7109, 0 0 20px #bd0f4c, 0 0 30px #e9085a, 0 0 40px #d48f03;"><a
-                    href="index.html">Sign Up</a></button></div>
+  <div class="container" id="signup1">
+    <div class="box">
+      <h1 style="text-shadow: 0 0 10px #ffffff, 0 0 20px #c60b2e, 0 0 30px #9b510f;">SIGN UP</h1>
     </div>
-</body>
+    <div class="box2" style="padding-top: 0px;">
+      <div class="user">
+        <input type="text" id="signupUsername" placeholder="Username" class="abc" style="background-color:black; width:300px;height: 40px; ">
+      </div>
+      <div class="user">
+        <input type="email" id="signupEmail" placeholder="Email" class="abc" style="background-color:black; width:300px;height: 40px;">
+      </div>
+      <div class="pass">
+        <input type="password" id="signupPassword" placeholder="Password" class="abc" style="background-color:black;width:300px;height: 40px;">
+      </div>
+    </div>
+    <div class="login">
+      <button onclick="signUp()" style="background-color: black;color: white;width:100px;height:30px;display: flex;justify-content: center;align-items: center;border-radius: 20px;box-shadow: 0 0 10px #9a7109, 0 0 20px #bd0f4c, 0 0 30px #e9085a, 0 0 40px #d48f03;">Sign Up</button>
+    </div>
+    <div class="switch">
+      <p style="color: aliceblue;">Already have an account? <a href="sign.html">Login</a></p>
+    </div>
+    <div class="message" id="signupMsg" style="color: white; margin-top: 10px;"></div>
+  </div>
 
+  <script>
+    function signUp() {
+      const username = document.getElementById('signupUsername').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const msg = document.getElementById('signupMsg');
+
+      if (!username || !email || !password) {
+        msg.textContent = "Please fill all fields.";
+        msg.style.color = "red";
+        return;
+      }
+
+      if (localStorage.getItem(username)) {
+        msg.textContent = "Username already exists!";
+        msg.style.color = "red";
+        return;
+      }
+
+      const user = {
+        email: email,
+        password: password
+      };
+
+      localStorage.setItem(username, JSON.stringify(user));
+      msg.textContent = "Sign up successful! Redirecting...";
+      msg.style.color = "lightgreen";
+
+      setTimeout(() => {
+        window.location.href = "sign.html";
+      }, 1500);
+    }
+  </script>
+</body>
 </html>
